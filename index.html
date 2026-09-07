@@ -1,217 +1,311 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Portafolio profesional de Eduardo López Pascual, Ingeniero Químico especializado en calidad, manufactura y mejora continua.">
-  <meta name="author" content="Eduardo López Pascual">
-  <title>Eduardo López Pascual | Ingeniero Químico</title>
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eduardo López Pascual — Ingeniero Químico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#101E29;
+    --navy-2:#182B3A;
+    --steel:#5C7A8C;
+    --paper:#EEEDE7;
+    --paper-dim:#D8D6CC;
+    --amber:#D98E3B;
+    --amber-dim:#B8752C;
+    --line:rgba(238,237,231,0.16);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--navy);
+    color:var(--paper);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  a{color:var(--amber);}
+  .wrap{max-width:920px; margin:0 auto; padding:0 28px;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:10;
+    background:rgba(16,30,41,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; justify-content:space-between; align-items:center; height:64px;}
+  nav .brand{font-family:'Space Grotesk'; font-weight:700; font-size:1.05rem;}
+  nav ul{display:flex; gap:28px; list-style:none;}
+  nav a{color:var(--paper); text-decoration:none; font-size:0.92rem;}
+  nav a:hover{color:var(--amber);}
+
+  /* HERO */
+  header.hero{padding:88px 0 64px; border-bottom:1px solid var(--line);}
+  .kicker{
+    color:var(--steel); font-size:0.85rem; margin-bottom:14px;
+  }
+  h1.name{font-size:clamp(2.2rem, 5vw, 3.4rem); line-height:1.05; max-width:14ch;}
+  .role{color:var(--amber); font-size:1.15rem; margin-top:10px; font-family:'Space Grotesk';}
+  .pitch{max-width:56ch; margin-top:22px; color:var(--paper-dim); font-size:1.05rem;}
+
+  .tags{display:flex; gap:14px; margin-top:40px; flex-wrap:wrap;}
+  .tag{
+    border:1px solid var(--line);
+    padding:14px 18px;
+    min-width:150px;
+  }
+  .tag .num{font-family:'IBM Plex Mono'; font-size:1.7rem; color:var(--amber); font-weight:600;}
+  .tag .label{font-size:0.8rem; color:var(--steel); margin-top:4px;}
+
+  /* SECTION SCAFFOLD */
+  section{padding:64px 0; border-bottom:1px solid var(--line);}
+  .section-head{display:flex; align-items:baseline; gap:16px; margin-bottom:36px;}
+  .section-head .idx{font-family:'IBM Plex Mono'; color:var(--steel); font-size:0.85rem;}
+  .section-head h2{font-size:1.6rem;}
+
+  /* SOBRE MI */
+  .about p{max-width:64ch; color:var(--paper-dim);}
+  .about p + p{margin-top:14px;}
+
+  /* EXPERIENCIA */
+  .job{margin-bottom:52px;}
+  .job:last-child{margin-bottom:0;}
+  .job-head{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px; border-bottom:1px solid var(--line); padding-bottom:10px; margin-bottom:16px;}
+  .job-head h3{font-size:1.2rem;}
+  .job-head .period{font-family:'IBM Plex Mono'; font-size:0.82rem; color:var(--steel);}
+  .job-company{color:var(--amber); font-size:0.95rem; margin-bottom:14px;}
+  .job ul{margin-left:18px; color:var(--paper-dim);}
+  .job li{margin-bottom:8px;}
+  .job li strong{color:var(--paper); font-weight:600;}
+
+  .photo-strip{display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;}
+  .photo-slot{
+    width:150px; height:110px;
+    border:1px dashed var(--steel);
+    display:flex; align-items:center; justify-content:center;
+    text-align:center; font-size:0.72rem; color:var(--steel);
+    padding:8px;
+  }
+  .photo-slot img{width:100%; height:100%; object-fit:cover; display:none;}
+
+  /* LOGROS - spec sheet style */
+  .spec-list{border-top:1px solid var(--line);}
+  .spec-row{
+    display:grid; grid-template-columns:64px 1fr;
+    gap:20px;
+    padding:20px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .spec-row .metric{font-family:'IBM Plex Mono'; color:var(--amber); font-size:1.3rem; font-weight:600;}
+  .spec-row .desc{color:var(--paper-dim);}
+  .spec-row .desc strong{color:var(--paper);}
+
+  /* SKILLS */
+  .skill-groups{display:grid; grid-template-columns:1fr 1fr; gap:32px;}
+  .skill-groups h4{font-size:0.85rem; color:var(--steel); font-family:'IBM Plex Mono'; font-weight:500; margin-bottom:10px; text-transform:none;}
+  .skill-groups ul{list-style:none;}
+  .skill-groups li{padding:6px 0; border-bottom:1px solid var(--line); color:var(--paper-dim); font-size:0.94rem;}
+
+  /* EDUCACION */
+  .edu-row{display:flex; justify-content:space-between; gap:12px; padding:16px 0; border-bottom:1px solid var(--line); flex-wrap:wrap;}
+  .edu-row:last-child{border-bottom:none;}
+  .edu-row .school{color:var(--steel); font-size:0.9rem;}
+  .edu-row .period{font-family:'IBM Plex Mono'; font-size:0.82rem; color:var(--steel); white-space:nowrap;}
+
+  /* CONTACTO */
+  footer{padding:70px 0 50px;}
+  footer h2{font-size:1.8rem; max-width:16ch; margin-bottom:24px;}
+  .contact-links{display:flex; gap:28px; flex-wrap:wrap; margin-top:10px;}
+  .contact-links a{
+    display:inline-block; text-decoration:none;
+    border-bottom:1px solid var(--amber-dim);
+    padding-bottom:2px; font-size:1rem;
+  }
+  footer .fine{color:var(--steel); font-size:0.8rem; margin-top:60px;}
+
+  @media (max-width:640px){
+    .skill-groups{grid-template-columns:1fr;}
+    nav ul{gap:16px;}
+    nav ul li:nth-child(4){display:none;}
+  }
+</style>
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="#inicio">ELP<span>.</span></a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menú</button>
-    <nav id="site-nav" class="site-nav" aria-label="Navegación principal">
-      <a href="#sobre-mi">Sobre mí</a>
-      <a href="#resultados">Resultados</a>
-      <a href="#proyectos">Proyectos</a>
-      <a href="#experiencia">Experiencia</a>
-      <a href="#competencias">Competencias</a>
-      <a class="nav-cta" href="#contacto">Contacto</a>
-    </nav>
-  </header>
 
-  <main>
-    <section id="inicio" class="hero section-pad">
-      <div class="hero-content">
-        <p class="eyebrow">INGENIERO QUÍMICO · CALIDAD · MANUFACTURA</p>
-        <h1>Eduardo López<br><span>Pascual</span></h1>
-        <p class="hero-lead">Supervisor de Calidad con experiencia en manufactura, estandarización, indicadores y mejora continua.</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#proyectos">Ver proyectos</a>
-          <a class="button button-secondary" href="https://github.com/EduardoLopez1027" target="_blank" rel="noopener">GitHub</a>
-        </div>
-        <div class="hero-meta">
-          <span>UNAM · FES Zaragoza</span>
-          <span>Ciudad de México</span>
-          <span>MAGAVI · Manufactura</span>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <div class="hero-image-wrap">
-          <img src="assets/img/maquina-soplado.jpg" alt="Máquina de soplado utilizada para la fabricación de envases plásticos">
-          <div class="image-label">Manufactura · Soplado</div>
-        </div>
-        <div class="hero-card">
-          <span>Enfoque</span>
-          <strong>Calidad + Procesos + Resultados</strong>
-        </div>
-      </div>
-    </section>
+<nav>
+  <div class="wrap">
+    <span class="brand">E. LÓPEZ PASCUAL</span>
+    <ul>
+      <li><a href="#experiencia">Experiencia</a></li>
+      <li><a href="#logros">Logros</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#educacion">Educación</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
 
-    <section id="resultados" class="metrics section-pad section-muted">
-      <div class="section-heading">
-        <p class="eyebrow">RESULTADOS DESTACADOS</p>
-        <h2>Impacto medible, no solo actividades.</h2>
-      </div>
-      <div class="metric-grid">
-        <article class="metric-card">
-          <strong>80%</strong>
-          <span>Reducción de rechazos de clientes asociados con defectos críticos.</span>
-        </article>
-        <article class="metric-card">
-          <strong>40%</strong>
-          <span>Reducción de rechazos relacionados con defectos menores e incumplimientos.</span>
-        </article>
-        <article class="metric-card">
-          <strong>ISO 9001</strong>
-          <span>Participación en proceso de certificación, capacitación y seguimiento de métricas.</span>
-        </article>
-        <article class="metric-card">
-          <strong>KPIs</strong>
-          <span>Seguimiento de rechazo, desviaciones, resoluciones y acciones de mejora.</span>
-        </article>
-      </div>
-    </section>
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker mono">PORTAFOLIO — INGENIERÍA QUÍMICA / CALIDAD</div>
+    <h1 class="name">Eduardo López Pascual</h1>
+    <div class="role">Control de Calidad · Manufactura · Mejora Continua</div>
+    <p class="pitch">
+      Ingeniero Químico (UNAM) con experiencia en control de calidad y manufactura
+      de envases plásticos para las industrias farmacéutica y veterinaria.
+      Superviso equipos de inspección, estandarizo criterios de calidad y gestiono
+      indicadores para reducir no conformidades.
+    </p>
+    <div class="tags">
+      <div class="tag"><div class="num">80%</div><div class="label">↓ rechazos críticos de cliente</div></div>
+      <div class="tag"><div class="num">40%</div><div class="label">↓ rechazos menores</div></div>
+      <div class="tag"><div class="num">ISO 9001</div><div class="label">participación en certificación</div></div>
+    </div>
+  </div>
+</header>
 
-    <section id="sobre-mi" class="section-pad about">
-      <div class="section-heading">
-        <p class="eyebrow">SOBRE MÍ</p>
-        <h2>Ingeniería aplicada a problemas reales de manufactura.</h2>
-      </div>
-      <div class="about-grid">
-        <div>
-          <p class="large-copy">Soy Ingeniero Químico egresado de la FES Zaragoza, UNAM. Actualmente me desempeño como Supervisor de Control de Calidad en MAGAVI S.A. de C.V., dentro de una operación de manufactura de envases plásticos para las industrias farmacéutica y veterinaria.</p>
-          <p>Mi experiencia combina liderazgo de inspectores, control de calidad, análisis de rechazos, estandarización de criterios, indicadores, BPM, coordinación con Producción y participación en iniciativas de mejora continua y sistemas de gestión.</p>
-        </div>
-        <aside class="quote-card">
-          <span>PROPUESTA DE VALOR</span>
-          <p>“Convertir problemas operativos de calidad en criterios claros, indicadores accionables y mejoras sostenibles.”</p>
-        </aside>
-      </div>
-    </section>
+<section id="experiencia">
+  <div class="wrap">
+    <div class="section-head"><span class="idx mono">01</span><h2>Experiencia</h2></div>
 
-    <section id="proyectos" class="section-pad section-dark">
-      <div class="section-heading light">
-        <p class="eyebrow">PROYECTOS Y CASOS</p>
-        <h2>Cómo he intervenido en calidad y operaciones.</h2>
+    <div class="job">
+      <div class="job-head">
+        <h3>Supervisor de Control de Calidad</h3>
+        <span class="period mono">DIC 2024 — PRESENTE</span>
       </div>
-      <div class="project-grid">
-        <a class="project-card featured" href="proyectos/catalogo-defectos.html">
-          <div class="project-number">01</div>
-          <div class="project-body">
-            <p class="project-type">ESTANDARIZACIÓN</p>
-            <h3>Catálogo integral de defectos</h3>
-            <p>Diseño de criterios de aceptación para clasificar defectos críticos, mayores y menores, con apoyo de especificaciones internas.</p>
-            <span class="project-link">Explorar proyecto →</span>
-          </div>
-        </a>
-        <a class="project-card" href="proyectos/reduccion-rechazos.html">
-          <div class="project-number">02</div>
-          <div class="project-body">
-            <p class="project-type">MEJORA DE CALIDAD</p>
-            <h3>Reducción de rechazos</h3>
-            <p>Acciones orientadas a disminuir defectos críticos de cliente y rechazos menores.</p>
-            <span class="project-link">Explorar proyecto →</span>
-          </div>
-        </a>
-        <a class="project-card" href="proyectos/iso-9001.html">
-          <div class="project-number">03</div>
-          <div class="project-body">
-            <p class="project-type">SISTEMA DE GESTIÓN</p>
-            <h3>Participación en ISO 9001</h3>
-            <p>Capacitación, reportes de inspectores y seguimiento de métricas durante el proceso de certificación.</p>
-            <span class="project-link">Explorar proyecto →</span>
-          </div>
-        </a>
-        <a class="project-card" href="proyectos/kpis.html">
-          <div class="project-number">04</div>
-          <div class="project-body">
-            <p class="project-type">GESTIÓN</p>
-            <h3>KPIs y comité semanal</h3>
-            <p>Estructuración de indicadores y seguimiento de quejas, rechazos, resoluciones y planes de acción.</p>
-            <span class="project-link">Explorar proyecto →</span>
-          </div>
-        </a>
-      </div>
-    </section>
+      <div class="job-company">MAGAVI S.A. de C.V. · Envases plásticos, industria farmacéutica y veterinaria</div>
+      <ul>
+        <li><strong>Diseñé e implementé</strong> un catálogo integral de defectos (críticos, mayores, menores) y especificaciones internas, estandarizando los criterios de inspección entre turnos.</li>
+        <li><strong>Reduje 80%</strong> los rechazos por defectos críticos de cliente mediante el rediseño de criterios de inspección.</li>
+        <li><strong>Disminuí 40%</strong> los rechazos por defectos menores, coordinando acciones correctivas entre Calidad y otras áreas.</li>
+        <li><strong>Institucionalicé</strong> el comité semanal de operaciones, con indicadores presentados ante Dirección Ejecutiva y Gerencias.</li>
+        <li><strong>Contribuí</strong> al proceso de certificación ISO 9001, apoyando la capacitación del personal y el análisis de causas de rechazo.</li>
+        <li>Supervisión, capacitación y liderazgo de un equipo de inspectores de calidad.</li>
+      </ul>
 
-    <section id="experiencia" class="section-pad">
-      <div class="section-heading">
-        <p class="eyebrow">EXPERIENCIA</p>
-        <h2>Una trayectoria que conecta calidad, producto y regulación.</h2>
+      <!-- Reemplaza estos recuadros con tus propias fotos: agrega tus imágenes a una carpeta /img
+           y cambia src="img/tu-foto.jpg" en cada <img>. Borra el texto de placeholder. -->
+      <div class="photo-strip">
+        <div class="photo-slot">Foto: equipo de inspección<img src="img/magavi-1.jpg" alt="Equipo de inspección MAGAVI"></div>
+        <div class="photo-slot">Foto: catálogo de defectos<img src="img/magavi-2.jpg" alt="Catálogo de defectos"></div>
+        <div class="photo-slot">Foto: comité de operaciones<img src="img/magavi-3.jpg" alt="Comité de operaciones"></div>
       </div>
-      <div class="timeline">
-        <article class="timeline-item">
-          <div class="timeline-date">12/2024 — PRESENTE</div>
-          <div class="timeline-line"></div>
-          <div class="timeline-content">
-            <p class="project-type">MAGAVI S.A. DE C.V.</p>
-            <h3>Supervisor de Control de Calidad</h3>
-            <p>Supervisión y capacitación de inspectores, aplicación de BPM, coordinación con Producción, gestión de indicadores, estandarización y mejora continua.</p>
-            <a href="experiencia/magavi.html">Ver experiencia detallada →</a>
-          </div>
-        </article>
-        <article class="timeline-item">
-          <div class="timeline-date">02/2024 — 08/2024</div>
-          <div class="timeline-line"></div>
-          <div class="timeline-content">
-            <p class="project-type">LICONSA S.A. DE C.V.</p>
-            <h3>Servicio Social · Calidad</h3>
-            <p>Control de calidad, revisión documental, cumplimiento regulatorio y apoyo en desarrollo de producto lácteo.</p>
-            <a href="experiencia/liconsa.html">Ver experiencia detallada →</a>
-          </div>
-        </article>
-      </div>
-    </section>
+    </div>
 
-    <section id="competencias" class="section-pad section-muted">
-      <div class="section-heading">
-        <p class="eyebrow">COMPETENCIAS</p>
-        <h2>Áreas en las que puedo aportar.</h2>
+    <div class="job">
+      <div class="job-head">
+        <h3>Servicio Social — Área de Calidad</h3>
+        <span class="period mono">FEB 2024 — AGO 2024</span>
       </div>
-      <div class="skill-grid">
-        <div class="skill-group"><h3>Calidad</h3><p>Control y aseguramiento de calidad · No conformidades · Gestión de defectos · BPM · Análisis de rechazos</p></div>
-        <div class="skill-group"><h3>Procesos</h3><p>Manufactura · Estandarización · Mejora continua · Análisis de causas · Coordinación interdepartamental</p></div>
-        <div class="skill-group"><h3>Sistemas</h3><p>ISO 9001:2015 · ISO 14001:2015 · ISO 45001:2018 · Indicadores y KPIs</p></div>
-        <div class="skill-group"><h3>Herramientas</h3><p>Excel · Microsoft Office · AutoCAD · Instrumentos de medición</p></div>
-      </div>
-    </section>
+      <div class="job-company">LICONSA S.A. de C.V. · Industria de lácteos</div>
+      <ul>
+        <li>Apliqué Normas Oficiales Mexicanas (NOM) relacionadas con productos lácteos.</li>
+        <li>Participé en el desarrollo de un nuevo producto: leche semidescremada sabor capuchino, 250 ml.</li>
+        <li>Apoyé en actividades de control de calidad, revisión documental y cumplimiento regulatorio.</li>
+      </ul>
 
-    <section class="section-pad gallery-section">
-      <div class="section-heading">
-        <p class="eyebrow">EVIDENCIA VISUAL</p>
-        <h2>El trabajo también se puede mostrar.</h2>
-        <p>Esta plantilla queda preparada para incorporar fotografías de procesos, equipos, formatos, proyectos y capacitaciones a medida que las vayas seleccionando.</p>
+      <div class="photo-strip">
+        <div class="photo-slot">Foto: planta / documentación<img src="img/liconsa-1.jpg" alt="Liconsa"></div>
       </div>
-      <div class="gallery-grid">
-        <figure class="gallery-main">
-          <img src="assets/img/maquina-soplado.jpg" alt="Equipo de soplado en proceso de fabricación de envases">
-          <figcaption>Proceso de manufactura · máquina de soplado</figcaption>
-        </figure>
-        <div class="gallery-placeholder"><span>Próxima evidencia</span><strong>Catálogo de defectos</strong><small>Agregar imagen autorizada</small></div>
-        <div class="gallery-placeholder"><span>Próxima evidencia</span><strong>Tablero / KPI</strong><small>Agregar imagen autorizada</small></div>
-      </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <section id="contacto" class="section-pad contact-section section-dark">
+<section id="logros">
+  <div class="wrap">
+    <div class="section-head"><span class="idx mono">02</span><h2>Logros clave</h2></div>
+    <div class="spec-list">
+      <div class="spec-row">
+        <div class="metric">80%</div>
+        <div class="desc"><strong>Reducción de rechazos críticos de cliente</strong> — mediante el rediseño de criterios de inspección y especificaciones internas de insumos y producto terminado.</div>
+      </div>
+      <div class="spec-row">
+        <div class="metric">40%</div>
+        <div class="desc"><strong>Reducción de rechazos menores</strong> — coordinando acciones correctivas entre Calidad, Producción y Mantenimiento.</div>
+      </div>
+      <div class="spec-row">
+        <div class="metric">1</div>
+        <div class="desc"><strong>Catálogo integral de defectos</strong> — clasificado en críticos, mayores y menores, con especificaciones internas que dieron autonomía de decisión al personal de inspección.</div>
+      </div>
+      <div class="spec-row">
+        <div class="metric">ISO</div>
+        <div class="desc"><strong>Certificación ISO 9001</strong> — participación en capacitación de personal, reporte de inspectores y análisis de causas de rechazo por turno; certificación aprobada.</div>
+      </div>
+      <div class="spec-row">
+        <div class="metric">↓</div>
+        <div class="desc"><strong>Rotación y clima laboral</strong> — mejora al homologar criterios de evaluación entre Producción y Calidad, reduciendo fricciones operativas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head"><span class="idx mono">03</span><h2>Competencias</h2></div>
+    <div class="skill-groups">
       <div>
-        <p class="eyebrow">CONTACTO</p>
-        <h2>Conectemos para hablar de calidad, procesos y manufactura.</h2>
+        <h4>Sistemas de gestión y normativa</h4>
+        <ul>
+          <li>ISO 9001:2015</li>
+          <li>ISO 14001:2015</li>
+          <li>ISO 45001:2018</li>
+          <li>NOM-059-SSA1-2015</li>
+          <li>NOM-243-SSA1-2010</li>
+        </ul>
       </div>
-      <div class="contact-actions">
-        <a class="button button-primary" href="mailto:lopezpascual.eduardo01@gmail.com">Enviar correo</a>
-        <a class="button button-outline-light" href="https://www.linkedin.com/in/eduardo-lopez-pascual-10278F0" target="_blank" rel="noopener">LinkedIn</a>
+      <div>
+        <h4>Calidad y operación</h4>
+        <ul>
+          <li>Control y aseguramiento de calidad</li>
+          <li>Buenas Prácticas de Manufactura (BPM)</li>
+          <li>Gestión de indicadores (KPIs)</li>
+          <li>Análisis de causa raíz</li>
+          <li>Liderazgo de equipos</li>
+        </ul>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
+</section>
 
-  <footer class="site-footer">
-    <span>© <span id="year"></span> Eduardo López Pascual</span>
-    <span>Portafolio profesional · GitHub Pages</span>
-  </footer>
+<section id="educacion">
+  <div class="wrap">
+    <div class="section-head"><span class="idx mono">04</span><h2>Educación</h2></div>
+    <div class="edu-row">
+      <div>
+        <h3>Ingeniería Química</h3>
+        <div class="school">UNAM — FES Zaragoza</div>
+      </div>
+      <div class="period">08/2019 — 06/2024</div>
+    </div>
+    <div class="edu-row">
+      <div>
+        <h3>Diplomado en Sistema de Gestión Integral en SST, Calidad y Medio Ambiente</h3>
+        <div class="school">UNAM — FES Zaragoza</div>
+      </div>
+      <div class="period">2024 — 2025</div>
+    </div>
+  </div>
+</section>
 
-  <script src="js/script.js"></script>
+<footer id="contacto">
+  <div class="wrap">
+    <h2>Hablemos de tu próximo proyecto de calidad.</h2>
+    <div class="contact-links">
+      <a href="mailto:lopezpascual.eduardo01@gmail.com">lopezpascual.eduardo01@gmail.com</a>
+      <a href="https://linkedin.com/in/eduardo-lopez-pascual-10278F0" target="_blank">LinkedIn</a>
+      <a href="https://github.com/EduardoLopez1027" target="_blank">GitHub</a>
+    </div>
+    <div class="fine mono">Ciudad de México, México</div>
+  </div>
+</footer>
+
 </body>
 </html>
